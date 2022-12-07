@@ -1,7 +1,6 @@
 <?php
 /**
  * @author    Craig Gosman <craig@ingenerator.com>
- * @licence   proprietary
  */
 
 require_once(__DIR__.'/../../vendor/autoload.php');
