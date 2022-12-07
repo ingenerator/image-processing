@@ -12,7 +12,7 @@ $processor = new ImageOperations();
 switch ($argv[1]) {
     case "getImageSize":
         [$script, $method, $source_path, $auto_rotate] = $argv;
-        echo JSON::encode($processor->getImageSize($source_path,(bool) $auto_rotate));
+        echo JSON::encode($processor->getImageSize($source_path,(bool) $auto_rotate), FALSE).PHP_EOL;
         break;
     case "thumbnail":
         [$script, $method, $source_path, $output_path, $operations] = $argv;
