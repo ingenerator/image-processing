@@ -32,10 +32,6 @@
     }
   },
   "config": {
-    "platform": {
-      "ext-ffi": "8.1",
-      "php": "8.1"
-    },
     "preferred-install": "dist",
     "sort-packages": true
   },
