@@ -15,7 +15,7 @@ interface ImageProcessorInterface
         '0' => "int", // width
         '1' => "int", // height
     ])]
-    public function getImageSize(string $source_path, bool $auto_rotate = FALSE): array;
+    public static function getImageSize(string $source_path, bool $auto_rotate = FALSE): array;
 
     public function thumbnail(string $source_path, string $output_path, array $operations): void;
 }

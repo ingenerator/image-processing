@@ -34,7 +34,7 @@ class ImageOperations implements ImageProcessorInterface
         '0' => "int", // width
         '1' => "int", // height
     ])]
-    public function getImageSize(string $source_path, bool $auto_rotate = FALSE): array
+    public static function getImageSize(string $source_path, bool $auto_rotate = FALSE): array
     {
         // if image is PDF or SVG add options to specify DPI it should be rendered as
         $source_path .= match (Image::findLoad($source_path)) {

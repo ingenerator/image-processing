@@ -49,7 +49,7 @@ abstract class BaseImageProcessorTest extends TestCase
     public function test_get_image_size(string $source_path, array $expect): void
     {
         $subject = $this->newSubject();
-        $this->assertSame($expect, $subject->getImageSize($source_path));
+        $this->assertSame($expect, $subject::getImageSize($source_path));
     }
 
     public function providerCreatePlaceholder(): array
