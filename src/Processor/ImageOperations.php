@@ -58,7 +58,7 @@ class ImageOperations implements ImageProcessorInterface
         $image = Image::thumbnail(
             $source_path, $operations['scale']['width'],
             [
-                'height'         => 10_000_000,
+                'height'         => $operations['scale']['height'] ?? 10_000_000,
                 'export-profile' => Interpretation::SRGB,
             ]
         );
