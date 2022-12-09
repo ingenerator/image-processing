@@ -40,7 +40,6 @@ abstract class BaseImageProcessorTest extends TestCase
      */
     public function test_get_image_size(string $source_path, bool $auto_rotate, array $expect): void
     {
-        $this->markTestSkipped();
         $subject = $this->newSubject();
         $this->assertSame($expect, $subject::getImageSize($source_path, $auto_rotate));
     }
@@ -58,7 +57,6 @@ abstract class BaseImageProcessorTest extends TestCase
      */
     public function test_create_placeholder($width, $height, $path_expected_result): void
     {
-        $this->markTestSkipped();
         $subject = $this->newSubject();
 
         $output_file = sprintf(
