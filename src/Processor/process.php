@@ -3,10 +3,11 @@
  * @author    Craig Gosman <craig@ingenerator.com>
  */
 
-if (is_file('vendor/autoload.php')) {
-    require_once 'vendor/autoload.php';
+if (is_file(__DIR__.'/../../vendor/autoload.php')) {
+    require_once __DIR__.'/../../vendor/autoload.php';
 } else {
-    require_once dirname(__DIR__) . '/../vendor/autoload.php';
+    // when loaded as a library the autoloader will be 2 more dirs up
+    require_once __DIR__.'/../../../../autoload.php';
 }
 
 use Ingenerator\ImageProcessing\Processor\ImageOperations;
