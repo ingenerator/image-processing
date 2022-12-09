@@ -172,7 +172,7 @@ abstract class BaseImageProcessorTest extends TestCase
     public function test_thumbnail(string $source_image, array $operations, string $path_expected_result): void
     {
         $operations = array_merge(
-            ['filter' => NULL, 'save' => ['type' => 'jpg', 'quality' => 90]],
+            ['save' => ['type' => 'jpg', 'quality' => 90]],
             $operations
         );
 

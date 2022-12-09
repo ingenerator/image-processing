@@ -63,8 +63,10 @@ class ImageOperations implements ImageProcessorInterface
             ]
         );
 
-        if ($operations['filter'] === 'greyscale') {
-            $image = $image->colourspace(Interpretation::GREY16);
+        if (isset($operations['filter'])) {
+            if ($operations['filter'] === 'greyscale') {
+                $image = $image->colourspace(Interpretation::GREY16);
+            }
         }
         if (isset($operations['crop'])) {
             $crop  = $operations['crop'];
