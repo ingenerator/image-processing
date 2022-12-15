@@ -10,6 +10,7 @@ use Jcupitt\Vips\Access;
 use Jcupitt\Vips\BandFormat;
 use Jcupitt\Vips\BlendMode;
 use Jcupitt\Vips\CompassDirection;
+use Jcupitt\Vips\Config;
 use Jcupitt\Vips\Extend;
 use Jcupitt\Vips\Image;
 use Jcupitt\Vips\Interpretation;
@@ -17,6 +18,11 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class ImageOperations implements ImageProcessorInterface
 {
+    public function __construct()
+    {
+        $this->setCacheOptions();
+    }
+
     public function createPlaceholder(int $width, int $height, string $output_path): void
     {
         Image::newFromBuffer(
@@ -58,7 +64,7 @@ class ImageOperations implements ImageProcessorInterface
         $image = Image::thumbnail(
             $source_path, $operations['scale']['width'],
             [
-                'height'         => $operations['scale']['height'] ?? 10_000_000,
+                'height' => $operations['scale']['height'] ?? 10_000_000,
                 'export-profile' => Interpretation::SRGB,
             ]
         );
@@ -69,11 +75,11 @@ class ImageOperations implements ImageProcessorInterface
             }
         }
         if (isset($operations['crop'])) {
-            $crop  = $operations['crop'];
+            $crop = $operations['crop'];
             $image = $this->cropToSize($image, $crop['width'], $crop['height'], $crop['resize_method']);
         }
         if (isset($operations['pad'])) {
-            $pad   = $operations['pad'];
+            $pad = $operations['pad'];
             $image = $this->padInBox(
                 $image,
                 $pad['width'],
@@ -86,21 +92,21 @@ class ImageOperations implements ImageProcessorInterface
         $options = match ($operations['save']['type']) {
             'jpg' => [
                 // set JPEG quality factor
-                'Q'               => $operations['save']['quality'] ?? 85,
+                'Q' => $operations['save']['quality'] ?? 85,
                 // generate custom coding table for image rather than using generic
                 'optimize_coding' => TRUE,
                 // strip tags and other metadata to reduce file size
-                'strip'           => TRUE,
+                'strip' => TRUE,
                 // images with transparency are flattened with alpha channel becoming white
-                'background'      => [255, 255, 255],
+                'background' => [255, 255, 255],
             ],
             'png' => [
-                'Q'           => 85,
+                'Q' => 85,
                 'compression' => 4,
                 // strip tags and other metadata to reduce file size
-                'strip'       => TRUE,
+                'strip' => TRUE,
                 // enable quantization for 8bpp - these are thumbnails for web after all
-                'palette'     => TRUE,
+                'palette' => TRUE,
             ],
             default => [],
         };
@@ -113,35 +119,36 @@ class ImageOperations implements ImageProcessorInterface
         $top = match (TRUE) {
             str_contains($resize_method, 'top') => 0,
             str_contains($resize_method, 'bottom') => $image->height - $height,
-            default => (int) round(($image->height - $height) / 2),
+            default => (int)round(($image->height - $height) / 2),
         };
 
         $left = match (TRUE) {
             str_contains($resize_method, 'left') => 0,
             str_contains($resize_method, 'right') => $image->width - $width,
-            default => (int) round(($image->width - $width) / 2),
+            default => (int)round(($image->width - $width) / 2),
         };
 
         return $image->crop($left, $top, $width, $height);
     }
 
     private function padInBox(
-        Image $image,
-        int $width,
-        int $height,
+        Image  $image,
+        int    $width,
+        int    $height,
         string $resize_method,
         string $background
-    ): Image {
+    ): Image
+    {
 
         if ($image->bands < 3) {
             $image = $image->colourspace(Interpretation::SRGB);
         }
 
-        if ( ! $image->hasAlpha() and $background === 'transparent') {
+        if (!$image->hasAlpha() and $background === 'transparent') {
             $image = $image->bandjoin_const(255);
         }
 
-        $new   = $this->create($width, $height, $background);
+        $new = $this->create($width, $height, $background);
         $image = $image->gravity(
             $resize_method === 'fit-left' ? CompassDirection::WEST : CompassDirection::CENTRE,
             $width,
@@ -177,13 +184,29 @@ class ImageOperations implements ImageProcessorInterface
 
         // turn short codes 'F90' into 'FF9900'
         if (strlen($hex) === 3) {
-            $hex = $hex[0].$hex[0].$hex[1].$hex[1].$hex[2].$hex[2];
+            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
         }
 
         // split string every 2 chars and run them through hexdex
-        $rgb   = array_map('hexdec', str_split($hex, 2));
+        $rgb = array_map('hexdec', str_split($hex, 2));
         $rgb[] = 255;
 
         return $rgb;
+    }
+
+    private function setCacheOptions(
+        ?int $concurrency = NULL,
+        int  $max_cache_operations = NULL,
+        ?int $max_mem = NULL,
+        ?int $max_files = NULL): void
+    {
+        // Set the number of worker threads that vips should use when running a VipsThreadPool
+        Config::concurrencySet($concurrency ?? 1);
+        // Sets the maximum number of operations that vips keeps in cache
+        Config::cacheSetMax($max_cache_operations ?? 0);
+        // Set the maximum amount of tracked memory we allow before we start dropping cached operations.
+        Config::cacheSetMaxMem($max_mem ?? 1_000_000);
+        // Set the maximum number of tracked files we allow before we start dropping cached operations
+        Config::cacheSetMaxFiles($max_files ?? 0);
     }
 }
