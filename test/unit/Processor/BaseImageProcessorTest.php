@@ -125,6 +125,20 @@ abstract class BaseImageProcessorTest extends TestCase
                 ['scale' => ['width' => 1000], 'save' => ['type' => 'png']],
                 self::RESOURCE_DIR.'pdf.png',
             ],
+            'Pad JPEG with colour'                                 => [
+                self::RESOURCE_DIR.'porto_1024.jpg',
+                [
+                    'scale' => ['width' => 150],
+                    'pad'   => [
+                        'width'         => 150,
+                        'height'        => 150,
+                        'resize_method' => 'fit',
+                        'background'    => 'F90',
+                    ],
+                    'save'  => ['type' => 'jpg'],
+                ],
+                self::RESOURCE_DIR.'square_150_colour.jpg',
+            ],
             'Read PNG with alpha'                                 => [
                 self::RESOURCE_DIR.'logo.png',
                 [
