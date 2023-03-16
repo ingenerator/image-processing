@@ -144,7 +144,7 @@ class ImageOperations implements ImageProcessorInterface
             $image = $image->colourspace(Interpretation::SRGB);
         }
 
-        if (!$image->hasAlpha() and $background === 'transparent') {
+        if ( ! $image->hasAlpha()) {
             $image = $image->bandjoin_const(255);
         }
 
