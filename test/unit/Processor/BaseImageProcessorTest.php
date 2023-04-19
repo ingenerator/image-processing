@@ -176,7 +176,12 @@ abstract class BaseImageProcessorTest extends TestCase
                 self::RESOURCE_DIR.'left-mirrored.jpg',
                 ['scale' => ['width' => 400]],
                 self::RESOURCE_DIR.'oriented-correctly.jpg',
-            ]
+            ],
+            'Demonstrate WebP support and compression'            => [
+                self::RESOURCE_DIR.'porto_1024.jpg',
+                ['scale' => ['width' => 1024], 'save' => ['type' => 'webp']],
+                self::RESOURCE_DIR.'porto_1024.webp',
+            ],
         ];
     }
 

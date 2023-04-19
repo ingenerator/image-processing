@@ -108,6 +108,13 @@ class ImageOperations implements ImageProcessorInterface
                 // enable quantization for 8bpp - these are thumbnails for web after all
                 'palette' => TRUE,
             ],
+            'webp' => [
+                'Q' => $operations['save']['quality'] ?? 85,
+                // level of CPU effort to reduce file size
+                'effort' => 4,
+                // strip tags and other metadata to reduce file size
+                'strip' => TRUE,
+            ],
             default => [],
         };
 

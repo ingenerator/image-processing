@@ -1,5 +1,10 @@
 ### Unreleased
 
+### v1.0.2 (2023-04-19)
+
+* Provide some sensible WebP compression settings and demonstrate webp conversion
+
+
 ### v1.0.1 (2023-03-16)
 
 * Fix creating thumbnail from JPG with background colour option
