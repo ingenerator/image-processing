@@ -1,5 +1,9 @@
 ### Unreleased
 
+### v2.0.0 (2023-08-15)
+
+* Support PHP8.2
+
 ### v1.0.2 (2023-04-19)
 
 * Provide some sensible WebP compression settings and demonstrate webp conversion
