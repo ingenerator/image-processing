@@ -125,7 +125,7 @@ abstract class BaseImageProcessorTest extends TestCase
                 ['scale' => ['width' => 1000], 'save' => ['type' => 'png']],
                 self::RESOURCE_DIR.'pdf.png',
             ],
-            'Pad JPEG with colour'                                 => [
+            'Pad JPEG with colour'                                => [
                 self::RESOURCE_DIR.'porto_1024.jpg',
                 [
                     'scale' => ['width' => 150],
