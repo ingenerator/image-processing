@@ -14,7 +14,7 @@
     "ext-ffi": "*",
     "ingenerator/php-utils": "^1.17",
     "jcupitt/vips": "^2.1",
-    "symfony/process": "^5.4"
+    "symfony/process": "^5.4 || ^6.0"
   },
   "require-dev": {
     "johnkary/phpunit-speedtrap": "^3.3",

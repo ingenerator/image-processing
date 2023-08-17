@@ -1,5 +1,9 @@
 ### Unreleased
 
+### v2.0.1 (2023-08-17)
+
+* Support symfony/process ^6 in addition to ^5
+
 ### v2.0.0 (2023-08-15)
 
 * Support PHP8.2
