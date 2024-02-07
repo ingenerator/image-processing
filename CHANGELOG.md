@@ -1,5 +1,10 @@
 ### Unreleased
 
+### v2.0.2 (2024-02-07)
+
+* Support ingenerator/php-utils:^2.0
+* Support symfony process ^7.0
+
 ### v2.0.1 (2023-08-17)
 
 * Support symfony/process ^6 in addition to ^5
