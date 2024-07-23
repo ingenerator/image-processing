@@ -1,5 +1,9 @@
 ### Unreleased
 
+### v2.1.0 (2024-10-01)
+
+* Support PHP 8.3
+
 ### v2.0.2 (2024-02-07)
 
 * Support ingenerator/php-utils:^2.0
