@@ -3,9 +3,10 @@
  * @author    Craig Gosman <craig@ingenerator.com>
  */
 
-namespace test\unit\Ingenerator\ImageProcessing\Processor;
+namespace test\unit\Processor;
 
 use Ingenerator\ImageProcessing\Processor\ImageProcessorInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ingenerator\ImageProcessing\Processor\ImageCompare;
 use Symfony\Component\Filesystem\Filesystem;
@@ -16,14 +17,14 @@ use function uniqid;
 use const PATHINFO_EXTENSION;
 use const PATHINFO_FILENAME;
 
-abstract class BaseImageProcessorTest extends TestCase
+abstract class BaseImageProcessorTestCases extends TestCase
 {
     private const RESOURCE_DIR = __DIR__.'/../../resources/';
     private const OUTPUT_DIR   = __DIR__.'/../../output/';
 
     abstract protected function newSubject(): ImageProcessorInterface;
 
-    public function providerImageSize(): array
+    public static function providerImageSize(): array
     {
         return [
             [self::RESOURCE_DIR.'crop_400.jpg', FALSE, [400, 400]],
@@ -35,16 +36,14 @@ abstract class BaseImageProcessorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerImageSize
-     */
+    #[DataProvider('providerImageSize')]
     public function test_get_image_size(string $source_path, bool $auto_rotate, array $expect): void
     {
         $subject = $this->newSubject();
         $this->assertSame($expect, $subject::getImageSize($source_path, $auto_rotate));
     }
 
-    public function providerCreatePlaceholder(): array
+    public static function providerCreatePlaceholder(): array
     {
         return [
             'JPEG placeholder' => [600, 400, self::RESOURCE_DIR.'placeholder.jpg'],
@@ -52,9 +51,7 @@ abstract class BaseImageProcessorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerCreatePlaceholder
-     */
+    #[DataProvider('providerCreatePlaceholder')]
     public function test_create_placeholder($width, $height, $path_expected_result): void
     {
         $subject = $this->newSubject();
@@ -69,7 +66,7 @@ abstract class BaseImageProcessorTest extends TestCase
         $this->assertTrue(ImageCompare::isSame($path_expected_result, $output_file));
     }
 
-    public function providerThumbnailOperations(): array
+    public static function providerThumbnailOperations(): array
     {
         return [
             'Scale down proportionately'                          => [
@@ -185,9 +182,7 @@ abstract class BaseImageProcessorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider providerThumbnailOperations
-     */
+    #[DataProvider('providerThumbnailOperations')]
     public function test_thumbnail(string $source_image, array $operations, string $path_expected_result): void
     {
         $operations = array_merge(

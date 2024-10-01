@@ -1,12 +1,12 @@
 timeout: 180s
 steps:
 - id: 'build:composer'
-  name: 'eu.gcr.io/ingenerator-ci/ingenerator-php:8.2'
+  name: 'eu.gcr.io/ingenerator-ci/ingenerator-php:8.3'
   entrypoint: 'composer'
   args:
   - 'install'
   - '--no-interaction'
 - id: 'test:unit'
-  name: 'eu.gcr.io/ingenerator-ci/ingenerator-php:8.2'
+  name: 'eu.gcr.io/ingenerator-ci/ingenerator-php:8.3'
   dir: '/workspace'
   entrypoint: './vendor/bin/phpunit'
