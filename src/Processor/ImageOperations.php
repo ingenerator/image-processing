@@ -14,6 +14,7 @@ use Jcupitt\Vips\Config;
 use Jcupitt\Vips\Extend;
 use Jcupitt\Vips\Image;
 use Jcupitt\Vips\Interpretation;
+use Jcupitt\Vips\Size;
 use JetBrains\PhpStorm\ArrayShape;
 
 class ImageOperations implements ImageProcessorInterface
@@ -65,6 +66,7 @@ class ImageOperations implements ImageProcessorInterface
             $source_path, $operations['scale']['width'],
             [
                 'height' => $operations['scale']['height'] ?? 10_000_000,
+                'size' => $operations['scale']['size'] ?? Size::BOTH,
                 'export-profile' => Interpretation::SRGB,
             ]
         );
