@@ -1,5 +1,9 @@
 ### Unreleased
 
+### v2.2.0 (2024-10-17)
+
+* Support `size` option on thumbnail() to control whether to upsize, downsize or both(default). See https://www.libvips.org/API/current/libvips-resample.html#vips-thumbnail
+
 ### v2.1.0 (2024-10-01)
 
 * Support PHP 8.3

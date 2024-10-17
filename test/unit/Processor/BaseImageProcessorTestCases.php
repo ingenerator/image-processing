@@ -6,6 +6,7 @@
 namespace test\unit\Processor;
 
 use Ingenerator\ImageProcessing\Processor\ImageProcessorInterface;
+use Jcupitt\Vips\Size;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ingenerator\ImageProcessing\Processor\ImageCompare;
@@ -150,6 +151,14 @@ abstract class BaseImageProcessorTestCases extends TestCase
                 ],
                 self::RESOURCE_DIR.'read_alpha.png',
             ],
+            'Scale down only if src image greater than requested size, ie DO NOT SCALE UP' => [
+                self::RESOURCE_DIR.'porto_1024.jpg',
+                [
+                    'scale' => ['width' => 1025, 'height' => 787, 'size' => Size::DOWN],
+                    'save'  => ['type' => 'webp'],
+                ],
+                self::RESOURCE_DIR.'porto_1024.webp',
+            ],
             'Scale up'                                            => [
                 self::RESOURCE_DIR.'logo.png',
                 [
@@ -198,7 +207,10 @@ abstract class BaseImageProcessorTestCases extends TestCase
             pathinfo($path_expected_result, PATHINFO_EXTENSION)
         );
         $subject->thumbnail($source_image, $output_file, $operations);
-        $this->assertTrue(ImageCompare::isSame($path_expected_result, $output_file));
+        $this->assertTrue(
+            ImageCompare::isSame($path_expected_result, $output_file),
+            'Failed asserting that '.$output_file.' is same image as '.$path_expected_result
+        );
     }
 
     protected function setUp(): void
