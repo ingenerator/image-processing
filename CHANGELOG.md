@@ -1,5 +1,8 @@
 ### Unreleased
 
+* Testsuite is now run on Github Actions rather than Google Cloud Build 
+  in order to easily access the test runner image
+
 ### v2.2.0 (2024-10-17)
 
 * Support `size` option on thumbnail() to control whether to upsize, downsize or both(default). See https://www.libvips.org/API/current/libvips-resample.html#vips-thumbnail
