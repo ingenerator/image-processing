@@ -3,8 +3,8 @@ on:
   push:
 
 env:
-  DOCKER_IMAGE: ghcr.io/ingenerator/ingenerator-php:8.3
-  PHP_VERSION: 8.3
+  DOCKER_IMAGE: ghcr.io/ingenerator/ingenerator-php:8.4
+  PHP_VERSION: 8.4
 
 jobs:
   unit-tests:

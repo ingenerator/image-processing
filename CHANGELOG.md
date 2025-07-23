@@ -1,5 +1,9 @@
 ### Unreleased
 
+### v2.3.0 (2025-07-23)
+
+* Support PHP 8.4
+
 * Testsuite is now run on Github Actions rather than Google Cloud Build 
   in order to easily access the test runner image
 

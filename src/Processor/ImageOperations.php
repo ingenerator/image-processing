@@ -205,7 +205,7 @@ class ImageOperations implements ImageProcessorInterface
 
     private function setCacheOptions(
         ?int $concurrency = NULL,
-        int  $max_cache_operations = NULL,
+        ?int $max_cache_operations = NULL,
         ?int $max_mem = NULL,
         ?int $max_files = NULL): void
     {
