@@ -4,19 +4,24 @@
          bootstrap="test/phpunit-bootstrap.php"
          colors="true"
          failOnDeprecation="true"
+         failOnPhpunitDeprecation="true"
+         failOnPhpunitNotice="true"
          failOnNotice="true"
          failOnWarning="true"
          failOnRisky="true"
          displayDetailsOnIncompleteTests="true"
          displayDetailsOnSkippedTests="true"
          displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnPhpunitDeprecations="true"
+         displayDetailsOnPhpunitNotices="true"
          displayDetailsOnTestsThatTriggerErrors="true"
          displayDetailsOnTestsThatTriggerNotices="true"
          displayDetailsOnTestsThatTriggerWarnings="true"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd">
+         stopOnDeprecation="true"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/13.4/phpunit.xsd">
   <source>
     <include>
-      <directory suffix=".php">src</directory>
+      <directory>src</directory>
     </include>
   </source>
   <testsuites>
